@@ -16,6 +16,10 @@ function SignUP() {
         return mail
     }
 
+    const Input = () => {
+        setError(true)
+    }
+
     const Submit = (e) => {
         e.preventDefault();
         if (first.length === 0 || last.length === 0 || email.length === 0 || add.length === 0 || mob.length === 0 || mob.length !== 10 || add.length <= 10 || !regx(email)) {
@@ -46,14 +50,17 @@ function SignUP() {
                 <input
                     type='text'
                     value={first}
-                    onChange={(e) => setFirst(e.target.value)}
+                    onChange={(e) => setFirst(e.target.value) }
+                    maxLength={15}
+                    minLength={3}
                     placeholder='First Name'
+                    onBlur={Input}
                     autoFocus
                 />
                 {
                     error && first.length <= 0 ? <label id='error'>First Name Can't be empty!</label> :
-                        error && first.length <=3 ? <label id='error'>Name should contain 3-10 letters!</label> : 
-                            error && first.length >=10 ? <label id='error'>Name should contain 3-10 letters!</label> : ""
+                        error && first.length <3 ? <label id='error'>Name should contain 3-10 letters!</label> : 
+                            error && first.length >10 ? <label id='error'>Name should contain 3-10 letters!</label> : ""
                 }
 
                 <label>Last Name : </label>
@@ -61,12 +68,15 @@ function SignUP() {
                     type='text'
                     value={last}
                     onChange={(e) => setLast(e.target.value)}
+                    maxLength={10}
+                    minLength={3}
+                    onBlur={Input}
                     placeholder='Last Name'
                 />
                 {
                     error && last.length <= 0 ? <label id='error'>Last Name Can't be empty!</label> :
-                    error && last.length <=3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
-                        error && last.length >=10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
+                    error && last.length <3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
+                        error && last.length >10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
                 }
 
                 <label>Email : </label>
@@ -74,6 +84,7 @@ function SignUP() {
                     type='text'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onBlur={Input}
                     placeholder='xyz@gmail.com'
                 />
                 {
@@ -120,10 +131,11 @@ function SignUP() {
                     value={add}
                     onChange={(e) => setAdd(e.target.value)}
                     placeholder='Write your Address'
+                    onBlur={Input}
                 />
                 {
                     error && add.length <= 0 ? <label id='error'>Address Can't be empty!</label> :
-                        error && add.length <= 10 ? <label id='error'>Input for field is too short!</label> : ""
+                        error && add.length <= 10 ? <label id='error'>Input for field is not sufficient enough!</label> : ""
                 }
 
                 <label>Mobile Number : </label>
@@ -131,6 +143,7 @@ function SignUP() {
                     type='number'
                     value={mob}
                     onChange={(e) => setMob(e.target.value)}
+                    onBlur={Input}
                     placeholder='+91 '
                 />
                 {
