@@ -20,7 +20,7 @@ function SignUP() {
         return mail
     }
 
-    const Input = () => {
+    const VallidCondition = () => {
         if(first.length === 0 || first.length<3 || first.length>10 ){
             setErrorfirst(true)
         }else if(last.length === 0 || last.length<3 || last.length>10 ){
@@ -41,7 +41,7 @@ function SignUP() {
         }
     }
 
-    const Submit = (e) => {
+    const SubmitForm = (e) => {
         e.preventDefault();
         if (first.length === 0 || last.length === 0 || email.length === 0 || add.length === 0 || mob.length === 0 || mob.length !== 10 || add.length <= 10 || !regx(email)) {
             setErrorfirst(true);
@@ -70,7 +70,7 @@ function SignUP() {
     return (
         <div className="content">
             <h2>SignUP Form</h2>
-            <form onSubmit={Submit}>
+            <form onSubmit={SubmitForm}>
                 <label>First Name : </label>
                 <input
                     type='text'
@@ -79,7 +79,7 @@ function SignUP() {
                     maxLength={15}
                     minLength={3}
                     placeholder='First Name'
-                    onBlur={Input}
+                    onBlur={VallidCondition}
                     autoFocus
                 />
                 {
@@ -95,13 +95,13 @@ function SignUP() {
                     onChange={(e) => setLast(e.target.value)}
                     maxLength={15}
                     minLength={3}
-                    onBlur={Input}
+                    onBlur={VallidCondition}
                     placeholder='Last Name'
                 />
                 {
                     errorLast && last.length <= 0 ? <label id='error'>Last Name Can't be empty!</label> :
-                    errorLast && last.length <3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
-                        errorLast && last.length >10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
+                        errorLast && last.length <3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
+                            errorLast && last.length >10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
                 }
 
                 <label>Email : </label>
@@ -109,7 +109,7 @@ function SignUP() {
                     type='text'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={Input}
+                    onBlur={VallidCondition}
                     placeholder='xyz@gmail.com'
                 />
                 {
@@ -156,7 +156,7 @@ function SignUP() {
                     value={add}
                     onChange={(e) => setAdd(e.target.value)}
                     placeholder='Write your Address'
-                    onBlur={Input}
+                    onBlur={VallidCondition}
                 />
                 {
                     errorAdd && add.length <= 0 ? <label id='error'>Address Can't be empty!</label> :
@@ -168,7 +168,7 @@ function SignUP() {
                     type='number'
                     value={mob}
                     onChange={(e) => setMob(e.target.value)}
-                    onBlur={Input}
+                    onBlur={VallidCondition}
                     placeholder='+91 '
                 />
                 {
