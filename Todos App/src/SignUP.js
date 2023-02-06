@@ -8,7 +8,11 @@ function SignUP() {
     const [email, setEmail] = useState("");
     const [add, setAdd] = useState("");
     const [mob, setMob] = useState("");
-    const [error, setError] = useState(false);
+    const [errorFirst, setErrorfirst] = useState(false);
+    const [errorLast, setErrorlast] = useState(false);
+    const [errorEmail, setErroremail] = useState(false);
+    const [errorAdd, setErroradd] = useState(false);
+    const [errorMob, setErrormob] = useState(false);
     const navigate = useNavigate();
 
     const regx = (email) => {
@@ -17,13 +21,34 @@ function SignUP() {
     }
 
     const Input = () => {
-        setError(true)
+        if(first.length === 0 || first.length<3 || first.length>10 ){
+            setErrorfirst(true)
+        }else if(last.length === 0){
+            setErrorlast(true)
+        }else if(email.length === 0){
+            setErroremail(true)
+        }else if (add.length === 0){
+            setErroradd(true)
+        }else if(mob.length === 0){
+            setErrormob(true)
+        }
+        else {
+            setErrorfirst(false);
+            setErrorlast(false);
+            setErroremail(false);
+            setErroradd(false);
+            setErrormob(false);
+        }
     }
 
     const Submit = (e) => {
         e.preventDefault();
         if (first.length === 0 || last.length === 0 || email.length === 0 || add.length === 0 || mob.length === 0 || mob.length !== 10 || add.length <= 10 || !regx(email)) {
-            setError(true);
+            setErrorfirst(true);
+            setErrorlast(true);
+            setErroremail(true);
+            setErroradd(true);
+            setErrormob(true);
         }
         else {
             // console.log("Submitted!");
@@ -58,9 +83,9 @@ function SignUP() {
                     autoFocus
                 />
                 {
-                    error && first.length <= 0 ? <label id='error'>First Name Can't be empty!</label> :
-                        error && first.length <3 ? <label id='error'>Name should contain 3-10 letters!</label> : 
-                            error && first.length >10 ? <label id='error'>Name should contain 3-10 letters!</label> : ""
+                    errorFirst && first.length <= 0 ? <label id='error'>First Name Can't be empty!</label> :
+                        errorFirst && first.length <3 ? <label id='error'>Name should contain 3-10 letters!</label> : 
+                            errorFirst && first.length >10 ? <label id='error'>Name should contain 3-10 letters!</label> : ""
                 }
 
                 <label>Last Name : </label>
@@ -68,15 +93,15 @@ function SignUP() {
                     type='text'
                     value={last}
                     onChange={(e) => setLast(e.target.value)}
-                    maxLength={10}
+                    maxLength={15}
                     minLength={3}
                     onBlur={Input}
                     placeholder='Last Name'
                 />
                 {
-                    error && last.length <= 0 ? <label id='error'>Last Name Can't be empty!</label> :
-                    error && last.length <3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
-                        error && last.length >10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
+                    errorLast && last.length <= 0 ? <label id='error'>Last Name Can't be empty!</label> :
+                    errorLast && last.length <3 ? <label id='error'>Last Name should contain 3-10 letters!</label> : 
+                        errorLast && last.length >10 ? <label id='error'>Last Name should contain 3-10 letters!</label> : ""
                 }
 
                 <label>Email : </label>
@@ -88,8 +113,8 @@ function SignUP() {
                     placeholder='xyz@gmail.com'
                 />
                 {
-                    error && email.length <= 0 ? <label id='error'>Email Can't be empty!</label> :
-                        error && !regx(email) ? <label id='error'>Invalid Email!</label> : ""
+                    errorEmail && email.length <= 0 ? <label id='error'>Email Can't be empty!</label> :
+                        errorEmail && !regx(email) ? <label id='error'>Invalid Email!</label> : ""
                 }
 
                 <label htmlFor='Gender'>Gender : </label>
@@ -134,8 +159,8 @@ function SignUP() {
                     onBlur={Input}
                 />
                 {
-                    error && add.length <= 0 ? <label id='error'>Address Can't be empty!</label> :
-                        error && add.length <= 10 ? <label id='error'>Input for field is not sufficient enough!</label> : ""
+                    errorAdd && add.length <= 0 ? <label id='error'>Address Can't be empty!</label> :
+                        errorAdd && add.length <= 10 ? <label id='error'>Input for field is not sufficient enough!</label> : ""
                 }
 
                 <label>Mobile Number : </label>
@@ -147,8 +172,8 @@ function SignUP() {
                     placeholder='+91 '
                 />
                 {
-                    error && mob.length <= 0 ? <label id='error'>Mobile Number Can't be empty!</label> :
-                        error && mob.length !== 10 ? <label id='error'>Invalid Mobile Number!</label> : ""
+                    errorMob && mob.length <= 0 ? <label id='error'>Mobile Number Can't be empty!</label> :
+                        errorMob && mob.length !== 10 ? <label id='error'>Invalid Mobile Number!</label> : ""
                 }
 
 
