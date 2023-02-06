@@ -23,7 +23,7 @@ function SignUP() {
     const Input = () => {
         if(first.length === 0 || first.length<3 || first.length>10 ){
             setErrorfirst(true)
-        }else if(last.length === 0){
+        }else if(last.length === 0 || last.length<3 || last.length>10 ){
             setErrorlast(true)
         }else if(email.length === 0){
             setErroremail(true)
