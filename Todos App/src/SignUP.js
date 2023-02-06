@@ -6,8 +6,10 @@ function SignUP() {
     const [first, setFirst] = useState("");
     const [last, setLast] = useState("");
     const [email, setEmail] = useState("");
+    const [gender, setGender]= useState("");
     const [add, setAdd] = useState("");
-    const [mob, setMob] = useState("");
+    const [mob, setMob] = useState(""); 
+    const [box , setBox] = useState(false)
     const [errorFirst, setErrorfirst] = useState(false);
     const [errorLast, setErrorlast] = useState(false);
     const [errorEmail, setErroremail] = useState(false);
@@ -20,7 +22,7 @@ function SignUP() {
         return mail
     }
 
-    const VallidCondition = () => {
+    const ValidCondition = () => {
         if(first.length === 0 || first.length<3 || first.length>10 ){
             setErrorfirst(true)
         }else if(last.length === 0 || last.length<3 || last.length>10 ){
@@ -53,6 +55,17 @@ function SignUP() {
         else {
             // console.log("Submitted!");
             alert("Registered!")
+            const obj = {
+                fname: first,
+                lname: last,
+                mail: email,
+                gen: gender,
+                addr:add,
+                mnum: mob,
+                chek:box
+
+            }
+            console.log(obj)
             navigate('/');
         }
     }
@@ -79,7 +92,7 @@ function SignUP() {
                     maxLength={15}
                     minLength={3}
                     placeholder='First Name'
-                    onBlur={VallidCondition}
+                    onBlur={ValidCondition}
                     autoFocus
                 />
                 {
@@ -95,7 +108,7 @@ function SignUP() {
                     onChange={(e) => setLast(e.target.value)}
                     maxLength={15}
                     minLength={3}
-                    onBlur={VallidCondition}
+                    onBlur={ValidCondition}
                     placeholder='Last Name'
                 />
                 {
@@ -109,7 +122,7 @@ function SignUP() {
                     type='text'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    onBlur={VallidCondition}
+                    onBlur={ValidCondition}
                     placeholder='xyz@gmail.com'
                 />
                 {
@@ -124,7 +137,8 @@ function SignUP() {
                             type='radio'
                             name="Gender"
                             id="male"
-                            value='male'
+                            value={gender}
+                            onChange={() => setGender("male")}
                             required
                         />
                         <label htmlFor='male'>Male</label>
@@ -134,7 +148,8 @@ function SignUP() {
                             type='radio'
                             name="Gender"
                             id="female"
-                            value='female'
+                            onChange={() => setGender("female")}
+                            value={gender}
                             required
                         />
                         <label htmlFor='male'>Female</label>
@@ -144,7 +159,8 @@ function SignUP() {
                             type='radio'
                             name="Gender"
                             id="other"
-                            value='other'
+                            value={gender}
+                            onChange={() => setGender("other")}
                             required
                         />
                         <label htmlFor='male'>Other</label>
@@ -156,7 +172,7 @@ function SignUP() {
                     value={add}
                     onChange={(e) => setAdd(e.target.value)}
                     placeholder='Write your Address'
-                    onBlur={VallidCondition}
+                    onBlur={ValidCondition}
                 />
                 {
                     errorAdd && add.length <= 0 ? <label id='error'>Address Can't be empty!</label> :
@@ -168,7 +184,7 @@ function SignUP() {
                     type='number'
                     value={mob}
                     onChange={(e) => setMob(e.target.value)}
-                    onBlur={VallidCondition}
+                    onBlur={ValidCondition}
                     placeholder='+91 '
                 />
                 {
@@ -183,12 +199,13 @@ function SignUP() {
                             type='checkbox'
                             name="Yes"
                             id="Yes"
-                            value='Yes'
+                            value={box}
+                            onChange={(e) => setBox(true)}
                             required
                         />
                     </div>
                 </div>
-                <label htmlFor='subscription'>Aggreed with the T&C  </label>
+                <label htmlFor='subscription'>Aggreed with the T&C ? </label>
 
                 <div className="btn">
                     <button>Submit</button>

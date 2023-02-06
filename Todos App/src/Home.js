@@ -26,6 +26,7 @@ function Home() {
     const [xyzdata, setdata] = useState(DummyData)
     const [isEdit, setEdit] = useState(false)
     const [editid, setEditid] = useState(null)
+    const [error, setError] = useState(false)
 
     // For Delete the Todo
     const onDelete = (id) => {
@@ -42,7 +43,7 @@ function Home() {
         let editItem = xyzdata.find(data => {
             return data.id === id
         })
-        console.log(editItem)
+        // console.log(editItem)
         setEdit(true)
         setTitle(editItem.title)
         setDesc(editItem.desc)
@@ -52,10 +53,11 @@ function Home() {
     // For Submit the form with adding Todo
     const Submit = (e) => {
         e.preventDefault();
-        if (!title || !desc) {
-            alert("Title or Description can't be blank!")
+        if (title.length === 0 || desc.length === 0) {
+            setError(true)
+        } else {
+            addTodo(title, desc)
         }
-        addTodo(title, desc)
     }
 
     // For add Todo
@@ -82,6 +84,7 @@ function Home() {
                 desc: desc,
             }
             alert("Added!")
+            setError(false)
             //  const pushArray = xyzdata.push(...xydata,NewArray)
             setdata([...xyzdata, (NewArray)]);
             // console.log(xyzdata, 62);  
@@ -100,11 +103,17 @@ function Home() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
+                {
+                    error && title.length === 0 ? <label id='error'>Title Can't be blank!</label> : ""
+                }
                 <label>Description</label>
                 <textarea
                     value={desc}
                     onChange={(e) => setDesc(e.target.value)}
                 />
+                {
+                    error && desc.length === 0 ? <label id='error'>Description Can't be blank!</label> : ""
+                }
                 {
                     isEdit ? <button>Edit</button> : <button>Add</button>
                 }
@@ -117,6 +126,7 @@ function Home() {
                         return <TodoItem key={data.id} data={data} onEdit={onEdit} onDelete={onDelete} />
                     })
             }
+            
         </div>
     )
 }
