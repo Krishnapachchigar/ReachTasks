@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
 
 function Form() {
 
@@ -61,7 +60,6 @@ function Form() {
                     <p>First Name: {formData.fname}</p>
                     <p>Last Name: {formData.lname}</p>
                     <p>Email ID: {formData.mail}</p>
-                    <p>Gender: {formData.gen}</p>
                     <p>Address: {formData.addr}</p>
                     <p>Mobile number: {formData.mnum}</p>
                     {isEdit ? <b>Thanks for Registering!</b> : <button onClick={(e) => OnEdit(e)}>Edit</button>}
