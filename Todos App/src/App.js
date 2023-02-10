@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
-import SignUP from './SignUP';
 import Home from './Home';
+import Reform from './Reform'
+import Form from './Form'
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/create' element={<SignUP />} />
+        <Route path='/create' element={<Form />} />
       </Routes>
     </div>
   );
