@@ -8,6 +8,7 @@ function Navbar() {
         <div className='links'>
             <Link to='/' >Home</Link>
             <Link to='/create'>SignUp</Link>
+            <Link to='/redform'>Form</Link>
         </div>
     </nav>
   )

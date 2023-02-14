@@ -13,12 +13,17 @@ function Form() {
             gen: "",
             addr: "",
             mnum: "",
-            chek: true
+            chek: "true"
         });
 
     const regx = () => {
         const mail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(formData.mail);
         return mail
+    }
+
+    const mobile = () => {
+        const mob = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/i.test(formData.mnum)
+        return mob
     }
 
     const ChangeHandler = (e) => {
@@ -28,9 +33,8 @@ function Form() {
     }
 
     const ValidCondition = () => {
-        if (formData.fname.length === 0 || formData.fname.length <=3 || formData.lname.length === 0 || formData.lname.length <=3 || formData.addr.length === 0 || formData.addr.length >10 || formData.mnum.length === 0 || formData.mnum.length !== 10 || formData.addr.length <= 10) {
+        if (formData.fname.length === 0 || formData.fname.length <=3 || formData.lname.length === 0 || formData.lname.length <=3 || formData.addr.length === 0 || formData.addr.length >10 || formData.mnum.length === 0 || formData.mnum.length !== 10 || formData.mnum !== mobile() || formData.addr.length <= 10 || formData.mail !== regx()) {
             setError(true)
-            setValidform(false)
         } else
         {
             setError(false)
@@ -47,7 +51,9 @@ function Form() {
 
     const SubmitForm = (e) => {
         e.preventDefault();
-        setValidform(true)
+        setError(false)
+        error ? setValidform(false) : setValidform(true)
+        // setValidform(true)
         console.log(formData)
     }
 
@@ -60,9 +66,11 @@ function Form() {
                     <p>First Name: {formData.fname}</p>
                     <p>Last Name: {formData.lname}</p>
                     <p>Email ID: {formData.mail}</p>
+                    <p>Gender: {formData.gen}</p>
                     <p>Address: {formData.addr}</p>
                     <p>Mobile number: {formData.mnum}</p>
-                    {isEdit ? <b>Thanks for Registering!</b> : <button onClick={(e) => OnEdit(e)}>Edit</button>}
+                    <p>Aggreed with T & C? {formData.chek}</p>
+                    <button onClick={(e) => OnEdit(e)}>Edit</button>
                 </div>
 
                 :
@@ -108,6 +116,10 @@ function Form() {
                         placeholder='xyz@gmail.com'
                         onBlur={ValidCondition}
                     />
+                    {
+                        error && formData.mail.length === 0 ? <label id='error'>Empty Input!</label> :
+                            error && !regx() ? <label id="error">Invalid Email!</label> : ""
+                    }
                     
                     <label htmlFor='Gender'>Gender : </label>
                     <div className='gender'>
@@ -117,7 +129,8 @@ function Form() {
                                 name="gen"
                                 id="female"
                                 onChange={ChangeHandler}
-                                value={formData.gen}
+                                value="male"
+                                checked={formData.gen === "male"}
                                 onBlur={ValidCondition}
                                 required
                             />
@@ -129,7 +142,8 @@ function Form() {
                                 name="gen"
                                 id="female"
                                 onChange={ChangeHandler}
-                                value={formData.gen}
+                                checked={formData.gen === "female"}
+                                value="female"
                                 onBlur={ValidCondition}
                                 required
                             />
@@ -141,7 +155,8 @@ function Form() {
                                 name="gen"
                                 id="female"
                                 onChange={ChangeHandler}
-                                value={formData.gen}
+                                checked={formData.gen === "other"}
+                                value="other"
                                 onBlur={ValidCondition}
                                 required
                             />
@@ -164,7 +179,7 @@ function Form() {
 
                     <label>Mobile Number : </label>
                     <input
-                        type='number'
+                        type='text'
                         onChange={ChangeHandler}
                         name="mnum"
                         value={formData.mnum}
@@ -173,8 +188,9 @@ function Form() {
                         onBlur={ValidCondition}
                     />
                     {
-                        error && formData.mnum.length === 0 ? <label id='error'>Invalid Input!</label> : 
-                            error && formData.mnum.length !== 10 ? <label id='error'>Field Must Contain 10 numbers!</label> : ""
+                        error && formData.mnum.length === 0 ? <label id='error'>Empty Input!</label> : 
+                            error && formData.mnum.length !== 10 ? <label id='error'>Field Must Contain 10 numbers!</label> : 
+                                error && !mobile() ? <label id='error'>Field must contain numbers only!</label> : ""
                     }
 
                     <div className="checkbox">
@@ -185,7 +201,7 @@ function Form() {
                                 id="Yes"
                                 onChange={ChangeHandler}
                                 value={formData.chek}
-                                checked={formData.chek === true}
+                                checked={formData.chek === "true"}
                                 required
                             />
                         </div>
