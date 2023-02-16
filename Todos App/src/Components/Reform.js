@@ -80,7 +80,7 @@ function Reform() {
         <div className='content'>
             <h2>Hello {value}!</h2>
             <form onSubmit={handleSubmit}>
-                <label>Name : </label>
+                <label>Todo : </label>
                 <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
                 <button>Add</button>
             </form>
