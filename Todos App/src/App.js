@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './Navbar';
-import Home from './Home';
-import Reform from './Reform'
-import Form from './Form'
+import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import Form from './Components/Form'
+import Reform from './Components/Reform';
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/create' element={<Form />} />
-        <Route path='/redform' element={<Reform />} />
+        <Route path='/form' element={<Reform />} />
       </Routes>
     </div>
   );
