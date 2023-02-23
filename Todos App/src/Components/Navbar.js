@@ -9,6 +9,7 @@ function Navbar() {
             <Link to='/' >Home</Link>
             <Link to='/create'>SignUp</Link>
             <Link to='/form'>Form</Link>
+            <Link to='/formhook'>FormHook</Link>
         </div>
     </nav>
   )

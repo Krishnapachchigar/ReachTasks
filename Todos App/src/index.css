@@ -53,7 +53,7 @@
   width: 100%;
 }
 
-.content form input, .content form textarea{
+.content form input, .content form select, .content.form.option {
   width: 100%;
   padding: 10px;
 }
